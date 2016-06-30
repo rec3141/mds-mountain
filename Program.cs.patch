@@ -1,0 +1,56 @@
+--- Program.cs	2016-06-29 22:38:45.692603285 +0000
++++ raw/Program.cs	2016-06-30 14:21:04.036460925 +0000
+@@ -205,7 +205,7 @@
+                     }
+                 }
+ 
+-                // Store the labels into Hashtable with each ID as a key, and the class label as a value.
++                //// Store the labels into Hashtable with each ID as a key, and the class label as a value.
+                 //Hashtable Labels = new Hashtable();
+ 
+                 //if (!labelFile.Equals("NoLabelFile"))   // Normal case.
+@@ -361,27 +361,27 @@
+                 int start_col = cIdx * mCol;
+ 
+                 // load the original delta values into deltaMat.
+-                int parsedN = FileIO.LoadMatrixData(ref deltaMat, ref id, origDataFile, N, true, 
+-                                                    start_row, start_col, start_row + rows, start_col + cols, myRank);
++                //int parsedN = FileIO.LoadMatrixData(ref deltaMat, ref id, origDataFile, N, ignoreFirst, 
++                //                                    start_row, start_col, start_row + rows, start_col + cols, myRank);
+ 
+-                if (N != parsedN)
++                //if (N != parsedN)
++                //{
++                //    Console.WriteLine("The number of points in the original data file != the given N");
++                //    Console.WriteLine("Please, check the input parameter again.");
++                //    return;
++                //}
++
++                try
+                 {
+-                    Console.WriteLine("The number of points in the original data file != the given N");
+-                    Console.WriteLine("Please, check the input parameter again.");
+-                    return;
++                    FileIO.LoadBinaryMatrixData(ref deltaMat, origDataFile, N, start_row, start_col, start_row + rows, start_col + cols);
+                 }
++                catch (Exception e)
++                {
++                    Console.WriteLine(e);
+ 
+-//                try
+-//                {
+-//                    FileIO.LoadBinaryMatrixData(ref deltaMat, origDataFile, N, start_row, start_col, start_row + rows, start_col + cols);
+-//                }
+-//                catch (Exception e)
+-//                {
+-//                    Console.WriteLine(e);
+-//
+-//                    comm.Abort(1);
+-//                    return;
+-//                }
++                    comm.Abort(1);
++                    return;
++                }
+ 
+ 
+                 if (myRank == 0)

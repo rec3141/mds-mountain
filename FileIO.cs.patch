@@ -1,0 +1,64 @@
+--- FileIO.cs	2016-06-30 14:19:42.688460260 +0000
++++ ./raw/FileIO.cs	2016-06-30 14:16:52.984458872 +0000
+@@ -110,7 +110,7 @@
+         {
+             int recordCount = data.Count;
+             String inputLineStr;
+-            char[] delimeter = new char[] { ' ' };
++            char[] delimeter = new char[] { '\t' };
+ 
+             try
+             {
+@@ -349,8 +349,8 @@
+                             {
+ 
+                                 // Parse each record string
+-                                // delimiter is ' '.
+-                                string[] split = inputLineStr.Split(new char[] { ' ' });
++                                // delimiter is '\t'.
++                                string[] split = inputLineStr.Split(new char[] { '\t' });
+ 
+                                 id.Add(idx, split[0]);      // store id value as a string value with current index (idx) as key.
+ 
+@@ -375,7 +375,7 @@
+                             {
+                                 if ((start_row <= idx) && (idx < end_row))
+                                 {
+-                                    string[] split = inputLineStr.Split(new char[] { ' ' });
++                                    string[] split = inputLineStr.Split(new char[] { '\t' });
+ 
+                                     for (int k = start_col; k < end_col; k++)
+                                     {
+@@ -604,12 +604,9 @@
+                 {
+                     sw.Write("{0}\t", (string)id[i]);       // print ID.
+                     for (int j = 0; j < secondDim; j++)
+-		    {
+-			sw.Write("{0:F10}\t", (double)data[i][j]); // print configuration of each axis.
+-		    }
++                        sw.Write("{0 :F10}\t", data[i][j]); // print configuration of each axis.
++
+                     sw.WriteLine("{0}", (int)Labels[id[i]]);    // print label value, which is actually integer.
+-//                    sw.WriteLine("{0}", (int)Labels[id[i]]);    // print label value, which is actually integer.
+-//		    }
+                 }
+                 sw.Flush();
+                 sw.Close();
+@@ -646,7 +643,7 @@
+                 {
+                     sw.Write("{0}\t", (string)id[i]);       // print ID.
+                     for (int j = 0; j < secondDim; j++)
+-                        sw.Write("{0:F10}\t", data[i][j]); // print configuration of each axis.
++                        sw.Write("{0 :F10}\t", data[i][j]); // print configuration of each axis.
+ 
+                     sw.WriteLine("1");    // print label value, which is ONE for all data.
+                 }
+@@ -683,7 +680,7 @@
+                 {
+                     sw.Write("{0}\t", i);       // print ID.
+                     for (int j = 0; j < secondDim; j++)
+-                        sw.Write("{0:F10}\t", data[i][j]); // print configuration of each axis.
++                        sw.Write("{0 :F10}\t", data[i][j]); // print configuration of each axis.
+ 
+                     sw.WriteLine("1");    // print label value, which is ONE for all data.
+                 }
